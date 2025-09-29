@@ -1,39 +1,3 @@
-# Create batch-level dataset for analysis
-print("=== CREATING BATCH-LEVEL DATASET ===")
-
-# Calculate dosing errors
-df['Dosing_Error'] = abs(df['Actual_Amount'] - df['Target_Amount'])
-
-# Aggregate to batch level
-batch_df = df.groupby('Batch_ID').agg({
-    'Production_Date': 'first',
-    'Recipe_Name': 'first',
-    'Num_Ingredients': 'first',
-    'QC_Result': 'first',
-    'Facility_Temperature': 'mean',
-    'Dosing_Error': ['mean', 'max', 'std'],
-    'Target_Amount': 'sum',
-    'Actual_Amount': 'sum',
-    'Dosing_Station': 'nunique'
-}).round(4)
-
-# Flatten column names
-batch_df.columns = ['_'.join(col).strip() if col[1] else col[0] for col in batch_df.columns]
-batch_df = batch_df.reset_index()
-
-# Create target variable (QC_Result becomes QC_Result_first after flattening)
-batch_df['Failed'] = (batch_df['QC_Result_first'] == 'failed').astype(int)
-
-print(f"Batch dataset shape: {batch_df.shape}")
-print(f"Batch failure rate: {batch_df['Failed'].mean():.1%}")
-print("\nBatch dataset ready for analysis")
-batch_df.head()
-
-# ============================================================================
-# PART 4: RECOMMENDATIONS & COMMUNICATION SYNTHESIS
-# ============================================================================
-
-print("""
 # PART 4: EXECUTIVE RECOMMENDATIONS & COMMUNICATION SYNTHESIS
 
 ## BUSINESS CONTEXT RECAP
@@ -106,8 +70,8 @@ confirming our diagnostic analysis identified the true root causes.
 - ROI: Immediate return on minimal maintenance investment
 
 **BUSINESS RATIONALE:**
-These stations show clear mechanical issues (over-dosing bias) and performance
-degradation. Unlike complex system changes, station maintenance provides
+These stations show clear mechanical issues (over-dosing bias) and performance 
+degradation. Unlike complex system changes, station maintenance provides 
 immediate, measurable improvement with existing procedures.
 
 ---
@@ -138,8 +102,8 @@ immediate, measurable improvement with existing procedures.
 - ROI: 10.7% improvement potential justifies HVAC investment
 
 **OPERATIONAL INSIGHT:**
-Temperature control affects paint chemistry and dosing accuracy. The 20-25°C
-range provides optimal viscosity and equipment performance, directly impacting
+Temperature control affects paint chemistry and dosing accuracy. The 20-25°C 
+range provides optimal viscosity and equipment performance, directly impacting 
 final product quality.
 
 ---
@@ -176,8 +140,8 @@ final product quality.
 - Simple recipes maintain quality across wider temperature ranges
 
 **BUSINESS IMPLICATION:**
-Single-factor improvements provide limited benefit. Addressing multiple factors
-simultaneously provides exponential returns. This validates a systems approach
+Single-factor improvements provide limited benefit. Addressing multiple factors 
+simultaneously provides exponential returns. This validates a systems approach 
 rather than isolated fixes.
 
 ---
@@ -300,7 +264,7 @@ High confidence in realistic scenario based on:
 - Demonstrates immediate ROI to stakeholders
 
 **IMPLEMENTATION:**
-Standard dosing station maintenance focusing on calibration and over-dosing bias
+Standard dosing station maintenance focusing on calibration and over-dosing bias 
 correction. This leverages existing capabilities while providing measurable results.
 
 ### Q: What's the difference between 5% dosing error on one ingredient vs 2% errors on many ingredients?
@@ -321,8 +285,8 @@ Consistent small errors are better than variable large errors. This means:
 - Quality control should monitor error patterns, not just error magnitude
 
 **OPERATIONAL IMPLICATION:**
-A station with consistent 2% errors across all ingredients will outperform
-a station with variable errors ranging from 0% to 5%, even if the average
+A station with consistent 2% errors across all ingredients will outperform 
+a station with variable errors ranging from 0% to 5%, even if the average 
 is the same.
 
 ### Q: Are there multiplicative effects when multiple risk factors align?
@@ -343,8 +307,8 @@ Risk factors compound exponentially, not additively. This means:
 - Systems thinking essential for maximum impact
 
 **STRATEGIC INSIGHT:**
-The multiplicative effect validates our systems approach. Fixing stations alone
-provides 2.5% improvement, but combining with temperature control and recipe
+The multiplicative effect validates our systems approach. Fixing stations alone 
+provides 2.5% improvement, but combining with temperature control and recipe 
 management provides 20.5% improvement—far more than the sum of individual parts.
 
 ---
@@ -352,14 +316,14 @@ management provides 20.5% improvement—far more than the sum of individual part
 ## EXECUTIVE SUMMARY FOR COMMUNICATION
 
 ### THE CRISIS
-Paint quality dropped from 99% to 67% pass rate after automation—a 32% failure
-rate representing a severe operational crisis costing approximately $1.6M annually
+Paint quality dropped from 99% to 67% pass rate after automation—a 32% failure 
+rate representing a severe operational crisis costing approximately $1.6M annually 
 in waste and rework.
 
 ### THE ROOT CAUSES
 Three primary factors drive failures through multiplicative effects:
 1. Recipe complexity (12.7% effect)
-2. Temperature control (10.7% effect)
+2. Temperature control (10.7% effect)  
 3. Station performance (2.9% effect)
 
 ### THE SOLUTION
@@ -375,33 +339,9 @@ Systematic three-tier approach:
 - **ROI:** 15x return on intervention investments
 
 ### THE RECOMMENDATION
-Start immediately with station D03/D07 maintenance for 2.5% quick win, then
-implement recipe complexity limits for 12.7% additional improvement—both
+Start immediately with station D03/D07 maintenance for 2.5% quick win, then 
+implement recipe complexity limits for 12.7% additional improvement—both 
 achievable within 30 days with minimal cost and maximum impact.
 
-This systematic, data-driven approach addresses root causes while providing
+This systematic, data-driven approach addresses root causes while providing 
 measurable, achievable improvements with clear business value.
-
----
-
-## PART 4 COMPLETE: EXECUTIVE SYNTHESIS READY
-
-The comprehensive Part 4 analysis above provides:
-
-✅ **Systematic answers** to all 6 assessment questions
-✅ **Quantified responses** to all 3 critical business questions
-✅ **Executive summary** ready for stakeholder communication
-✅ **Implementation roadmap** with timelines and ROI
-✅ **Video script foundation** with clear, didactic explanations
-
-**Key deliverables:**
-- Top 3 failure drivers identified with effect sizes (12.7%, 10.7%, 2.9%)
-- Station priorities quantified (D03/D07 = 2.5% immediate improvement)
-- Optimal ranges defined (20-25°C temperature, ≤15 ingredients)
-- Multiplicative interactions proven (23.1% performance spread)
-- Action priorities established (Quick wins → High impact → Optimization)
-- Expected impact calculated (20.5% improvement, $618K savings)
-
-**This analysis transforms our diagnostic findings into actionable business recommendations
-ready for executive presentation and implementation.**
-""")
