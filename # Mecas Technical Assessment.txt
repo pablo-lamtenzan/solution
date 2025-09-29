@@ -1,0 +1,271 @@
+# Mecas Technical Assessment
+
+<aside>
+🎉 Congrats for making it to this stage! You're among our top candidates 👏🏻
+
+</aside>
+
+## The Challenge
+
+You'll step into the role of a data scientist at an automated paint manufacturing facility facing a critical quality control issue. The company recently automated their entire production pipeline, but quality has dropped from 99% to 67% pass rate. Your mission: uncover what's causing the failures and provide actionable recommendations.
+
+## The Business Context
+
+A paint production company has fully automated their manufacturing process, from ingredient dosing to final quality control. Since automation, they've seen a **severe drop in quality**:
+
+- **Before automation:** 99% pass rate
+- **After automation:** 67% pass rate (33% failure rate!)
+- **Quality check method:** Color matching within narrow deviation margins
+
+**Previous investigation identified 3 potential culprits:**
+
+1. **Dosing errors** from automated machines
+2. **Recipe complexity** (high number of ingredients)
+3. **Facility temperature** variations
+
+Your task is to dig deeper into the data and determine exactly what's driving failures - and more importantly, which factors to prioritize for maximum impact.
+
+## The Dataset
+
+We've prepared a realistic synthetic dataset from a full year of automated production:
+
+- **~90,000 dosing events** across 6,500 production batches
+- **Full year coverage:** January - December 2024
+- **75 paint recipes** with varying complexity (5-30 ingredients, avg 18)
+- **7 dosing stations** with different performance characteristics
+- **Quality control results** for every batch (67% pass rate)
+- **Facility temperature** readings throughout production
+- **Dosing accuracy data:** Target vs. actual amounts for each ingredient
+
+The data captures the full complexity of industrial manufacturing, including:
+
+- Systematic station biases and drift over time
+- Recipe complexity effects on quality
+- Temperature sensitivity patterns
+- Interaction effects between multiple factors
+- Realistic data quality issues (missing values, outliers)
+
+## Your Mission (3 hours + 1 hour video)
+
+### Part 1: Data Exploration & Understanding (45-60 minutes)
+
+Get to know the data and the business problem:
+
+- Understand the data structure and quality issues
+- Identify key variables and their relationships
+- Perform initial statistical analysis
+- Formulate hypotheses about failure causes
+
+**What we're looking for:**
+
+- Thoughtful data quality checks
+- Clear understanding of the manufacturing process
+- Systematic exploration approach
+- Business-grounded hypothesis formation
+
+### Part 2: Diagnostic Analysis (60-75 minutes)
+
+This is where you uncover the root causes. Your analysis should address:
+
+**Dosing Accuracy Patterns**
+
+- Are certain dosing stations consistently problematic?
+- How do dosing errors contribute to failures? (Think beyond simple totals)
+- Is it the magnitude of errors or their distribution that matters?
+- Are there patterns in which ingredients are affected?
+
+**Recipe Complexity Impact**
+
+- How does ingredient count affect pass rates?
+- What's the failure rate for simple vs. complex recipes?
+- Is there a specific complexity threshold where quality degrades?
+
+**Temperature Effects**
+
+- What's the optimal temperature range for production?
+- How do deviations from optimal impact quality?
+- Are extreme temperatures equally problematic in both directions?
+
+**Station Performance**
+
+- Which dosing stations are most problematic?
+- Do certain stations show systematic bias (over/under dosing)?
+- Has station performance degraded over time?
+
+**Your approach should:**
+
+- Use appropriate statistical tests
+- Create clear visualizations for stakeholders
+- Identify actionable patterns, not just correlations
+- Consider multiple dimensions of the problem
+
+### Part 3: Predictive Modeling (45-60 minutes)
+
+Build a model that can predict batch failures before they happen:
+
+- Create an interpretable predictive model
+- Engineer features that capture the key failure drivers
+- Validate your model's performance
+- Explain which factors are most predictive and why
+
+**Success criteria:**
+
+- Model achieves ROC-AUC > 0.65 (baseline performance benchmark)
+- Results are explainable to non-technical stakeholders
+- Feature importance aligns with business logic
+- Clear validation approach and understanding of limitations
+
+**Note:** The patterns in this data are subtle and realistic. A model with ~70-75% AUC that's well-explained beats a complex 80% AUC black box.
+
+### Part 4: Recommendations & Communication (Prepare during the 3 hours)
+
+Throughout your analysis, prepare insights for your video presentation:
+
+- **What are the top 3 failure drivers?** (Expect to find ~15-20% effect sizes)
+- **Which dosing stations need immediate attention?** (Can you quantify their impact?)
+- **What's the optimal operating range for temperature?**
+- **How does recipe complexity interact with other factors?**
+- **What's your recommended action priority?** (Quick wins vs. long-term fixes)
+- **What's the expected impact?** (Can you estimate failure rate improvement?)
+
+**Key questions to answer:**
+
+- If the plant manager could only fix ONE thing tomorrow, what should it be?
+- What's the difference between a 5% dosing error on one ingredient vs. 2% errors on many ingredients?
+- Are there multiplicative effects when multiple risk factors align?
+
+## Technical Guidelines
+
+**Tools & Languages:** Use whatever you're most comfortable with - Python (pandas, scikit-learn), R, or any other language of your choice. We care about insights, not specific tools.
+
+**Analysis Approach:** Structure your work so someone can follow your reasoning. Use notebooks (Jupyter/R Markdown) or well-commented scripts.
+
+**Visualizations:** Create charts that would make sense to factory operators and executives, not just data scientists.
+
+**Statistical Rigor:** Use appropriate methods, but explain them in business terms.
+
+## Evaluation Criteria
+
+We'll assess your work across five dimensions:
+
+**Data Understanding & Exploration (20%)**
+
+- Quality of initial analysis
+- Identification of data issues
+- Understanding of business context
+
+**Diagnostic Insights (25%)**
+
+- Discovery of key failure drivers (complexity, temperature, dosing patterns)
+- Understanding of subtle patterns (e.g., error distribution vs. magnitude)
+- Statistical rigor and validation of findings
+- Identification of station-specific issues and degradation over time
+- Recognition of interaction effects between factors
+
+**Predictive Modeling (20%)**
+
+- Model appropriateness and performance
+- Feature engineering quality
+- Interpretability and validation
+
+**Business Recommendations (20%)**
+
+- Actionability of insights
+- Clear prioritization of issues
+- Quantified impact estimates
+
+**Communication & Presentation (15%)**
+
+- Clarity of code and documentation
+- Quality of visualizations
+- Effectiveness of 7-minute video
+
+## Deliverables
+
+After your 3-hour analysis window, you'll have **1 additional hour** to upload:
+
+### 1. **7-Minute Video Presentation**
+
+Record a concise walkthrough of your solution.
+
+Some tips:
+
+- Screen record your analysis/visualizations
+- Focus on business impact with numbers (% improvements, cost savings potential)
+- Explain the "why" behind patterns, not just the "what"
+- Keep it under 7 minutes (we won't watch beyond that)
+
+### 2. **Brief Written Summary** (Optional but recommended)
+
+- 1-page summary of findings
+- Top 3 recommendations with expected impact
+- Key visualizations/tables
+
+## Tips for Success
+
+**🔍 Start with the Business Problem**
+
+- Read the context carefully - this is a serious quality crisis (67% pass rate!)
+- Think about what would actually help the plant manager
+- Focus on actionable insights, not just statistical findings
+
+**📊 Make Your Analysis Accessible**
+
+- Create visualizations operators and managers can understand
+- Explain technical concepts in business terms
+- Show the "so what" for every finding
+
+**🎯 Prioritize Ruthlessly**
+
+- Better to have 2-3 deep insights than 10 surface-level observations
+- Focus on the most impactful failure drivers (expect ~15-20% effects for major factors)
+- Not every hypothesis needs to be tested
+
+**🔬 Think Beyond Simple Aggregations**
+
+- Sometimes the distribution of errors matters more than total error
+- Look for patterns at the batch level, not just individual dosings
+- Consider interaction effects between factors
+
+**🧪 Show Your Thinking**
+
+- Document why you chose certain approaches
+- Explain what didn't work and why
+- Show awareness of limitations
+
+**💡 Think Like a Consultant**
+
+- What would you tell the client to do Monday morning?
+- Can you quantify the impact? (e.g., "Fixing Station X could reduce failures by Y%")
+- What's the implementation difficulty vs. impact?
+
+## Questions?
+
+If anything is unclear, reach out! We want to see your best analytical work, not test your ability to guess requirements.
+
+**Remember:** We're evaluating your problem-solving approach, analytical rigor, and business acumen - not looking for perfection. Show us how you think through complex, ambiguous problems.
+
+## A Final Note
+
+This dataset represents a real industrial quality crisis - a 32% failure rate is severe and costly. The data contains subtle, realistic patterns that mirror what you'd encounter in an actual manufacturing environment:
+
+- **Key patterns exist** but require thoughtful feature engineering to discover
+- **Multiple factors interact** - no single silver bullet solution
+- **Effects are graduated** - expect 15-20% differences between best and worst conditions
+- **Data has realistic issues** - missing values, outliers, noise
+
+You won't have time to analyze everything perfectly, and that's intentional. We want to see:
+
+- How you prioritize when time is limited (what matters most?)
+- How you balance depth vs. breadth (deep on key issues vs. shallow everywhere)
+- How you distinguish correlation from causation
+- How you communicate complex findings simply to drive action
+- How you connect analysis to business impact (not just statistical significance)
+
+**Remember:** The most valuable insight isn't always the most complex analysis. Sometimes discovering that error *distribution* matters more than error *magnitude* is worth more than a perfectly tuned gradient boosting model.
+
+Good luck! We're excited to see your approach to this challenge 🚀
+
+---
+
+*Estimated time: 3 hours analysis + 1 hour video | Questions: marco@mecas.ai*
